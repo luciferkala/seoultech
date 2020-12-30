@@ -1,8 +1,10 @@
 import { Router } from "express";
-import authRouter from "@src/api/auth";
+import userRouter from "@src/api/user";
+import envDataRouter from "@src/api/envdata";
 
 const router = Router();
 
-router.use("/auth", authRouter);
+router.use("/user", userRouter);
+router.use("/envdata", envDataRouter);
 
 export default router;
