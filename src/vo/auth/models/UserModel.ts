@@ -20,9 +20,6 @@ export namespace UserModelTypes {
         email: IColumnOption;
         name: IColumnOption;
         pwd: IColumnOption;
-        // grade: IColumnOption;
-        // school: IColumnOption;
-        stdNum: IColumnOption;
     }
     export const attr: UserModelTypes.IUserScheme = {
         email: {
@@ -46,25 +43,6 @@ export namespace UserModelTypes {
             allowNull: false,
             validate: {
                 notEmpty: true
-            }
-        },
-        // grade: {
-        //     type: DataTypes.INTEGER,
-        //     allowNull: false
-        // },
-        // school: {
-        //     type: DataTypes.STRING,
-        //     allowNull: false,
-        //     validate: {
-        //         notEmpty: true
-        //     }
-        // },
-        stdNum: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            validate: {
-                notEmpty: true,
-                isNumeric: true
             }
         }
     };

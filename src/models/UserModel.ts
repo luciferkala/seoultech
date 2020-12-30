@@ -11,9 +11,6 @@ class User
     public email!: string;
     public name!: string;
     public pwd!: string;
-    // public grade!: number;
-    // public school!: string;
-    public stdNum!: string;
     public readonly createdAt!: Date;
     public readonly updatedAt!: Date;
     static initiate(connection: Sequelize): Model {

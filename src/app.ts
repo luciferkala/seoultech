@@ -23,7 +23,7 @@ app.use(
     })
 );
 const init = new InitController().excute()();
-const kafkaInit = new KafkaController().excute()();
+// const kafkaInit = new KafkaController().excute()();
 app.use("/api", apiRouter);
 if (process.env.NODE_ENV !== "test")
     app.listen(Number(process.env.SERVER_PORT) || 3000, "0.0.0.0");
