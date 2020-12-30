@@ -17,6 +17,7 @@ export namespace EnvDataModelTypes {
         validate?: ModelValidateOptions;
     }
     export interface IEnvDataScheme extends ModelAttributes {
+        idx: IColumnOption;
         location: IColumnOption;
         time: IColumnOption;
         picture: IColumnOption;
@@ -28,6 +29,14 @@ export namespace EnvDataModelTypes {
         author: IColumnOption;
     }
     export const attr: EnvDataModelTypes.IEnvDataScheme = {
+        idx: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            primaryKey: true,
+            validate: {
+                notEmpty: true
+            }
+        },
         location: {
             type: DataTypes.STRING,
             allowNull: false,
