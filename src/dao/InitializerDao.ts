@@ -1,9 +1,10 @@
-/* eslint-disable @typescript-eslint/require-await */
-/* eslint-disable @typescript-eslint/no-floating-promises */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import User from "@src/models/UserModel";
+import EnvData from "@src/models/EnvDataModel";
+import Board from "@src/models/BoardModel";
+import Post from "@src/models/PostModel";
 import AuthDBManager from "@src/models/AuthDBManager";
 import Dao from "@src/dao/Dao";
+import { toNamespacedPath } from "path";
 
 class InitializerDao extends Dao {
     protected db: AuthDBManager;
@@ -26,10 +27,36 @@ class InitializerDao extends Dao {
 
     public async init(): Promise<void> {
         User.initiate(this.db.getConnection());
+        EnvData.initiate(this.db.getConnection());
+        Board.initiate(this.db.getConnection());
+        Post.initiate(this.db.getConnection());
+
+        User.hasMany(EnvData, {
+            sourceKey: "name",
+            foreignKey: "author"
+        });
+
+        User.hasMany(Post, {
+            sourceKey: "name",
+            foreignKey: "author"
+        });
+
+        EnvData.belongsTo(User, {
+            targetKey: "name",
+            foreignKey: "author"
+        });
+
+        Post.belongsTo(User, {
+            targetKey: "name",
+            foreignKey: "author"
+        });
     }
 
     public async sync(): Promise<void> {
         await User.sync();
+        await EnvData.sync();
+        await Board.sync();
+        await Post.sync();
         // await this.endConnect();
     }
 }
