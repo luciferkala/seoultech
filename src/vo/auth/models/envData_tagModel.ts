@@ -10,11 +10,18 @@ export namespace envData_tagModelTypes {
         sequelize: Sequelize;
         tableName: string;
     }
+    export interface IForeignReferences {
+        model: string;
+        key: string;
+    }
     export interface IColumnOption {
         type: DataTypes.DataType;
         allowNull: boolean;
         primaryKey?: boolean;
         validate?: ModelValidateOptions;
+        onDelete?: string;
+        onUpdate?: string;
+        references?: IForeignReferences;
     }
     export interface IenvData_tagScheme extends ModelAttributes {
         env_idx: IColumnOption;
@@ -27,6 +34,12 @@ export namespace envData_tagModelTypes {
             primaryKey: true,
             validate: {
                 notEmpty: true
+            },
+            onDelete: "CASCADE",
+            onUpdate: "CASCADE",
+            references: {
+                model: "EnvData",
+                key: "idx"
             }
         },
         tag_idx: {
@@ -35,6 +48,12 @@ export namespace envData_tagModelTypes {
             primaryKey: true,
             validate: {
                 notEmpty: true
+            },
+            onDelete: "CASCADE",
+            onUpdate: "CASCADE",
+            references: {
+                model: "Tag",
+                key: "idx"
             }
         }
     };
