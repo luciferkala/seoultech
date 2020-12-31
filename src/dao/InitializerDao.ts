@@ -29,11 +29,11 @@ class InitializerDao extends Dao {
 
     public async init(): Promise<void> {
         User.initiate(this.db.getConnection());
-        envData_tag.initiate(this.db.getConnection());
         Tag.initiate(this.db.getConnection());
         EnvData.initiate(this.db.getConnection());
         Board.initiate(this.db.getConnection());
         Post.initiate(this.db.getConnection());
+        envData_tag.initiate(this.db.getConnection());
 
         User.hasMany(EnvData, {
             sourceKey: "email",
@@ -71,8 +71,8 @@ class InitializerDao extends Dao {
         await EnvData.sync();
         await Board.sync();
         await Post.sync();
-        await envData_tag.sync();
         await Tag.sync();
+        await envData_tag.sync();
 
         // await this.endConnect();
     }
