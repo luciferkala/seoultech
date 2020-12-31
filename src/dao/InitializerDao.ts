@@ -3,6 +3,7 @@ import EnvData from "@src/models/EnvDataModel";
 import Board from "@src/models/BoardModel";
 import Post from "@src/models/PostModel";
 import Tag from "@src/models/TagModel";
+import envData_tag from "@src/models/envData_tagModel";
 import AuthDBManager from "@src/models/AuthDBManager";
 import Dao from "@src/dao/Dao";
 import { toNamespacedPath } from "path";
@@ -31,6 +32,7 @@ class InitializerDao extends Dao {
         EnvData.initiate(this.db.getConnection());
         Board.initiate(this.db.getConnection());
         Post.initiate(this.db.getConnection());
+        envData_tag.initiate(this.db.getConnection());
 
         User.hasMany(EnvData, {
             sourceKey: "email",
@@ -68,7 +70,9 @@ class InitializerDao extends Dao {
         await EnvData.sync();
         await Board.sync();
         await Post.sync();
+        await envData_tag.sync();
         await Tag.sync();
+
         // await this.endConnect();
     }
 }
