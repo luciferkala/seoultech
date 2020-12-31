@@ -4,6 +4,7 @@ import EnvData from "@src/models/EnvDataModel";
 import LogService from "@src/utils/LogService";
 import Dao from "@src/dao/Dao";
 import { AllStrictReqData, AuthReqData } from "@src/vo/auth/services/reqData";
+import Tag from "@src/models/TagModel";
 
 const logger = LogService.getInstance();
 
@@ -30,7 +31,8 @@ class EnvDataDao extends Dao {
             result = await EnvData.findOne({
                 where: {
                     idx: data.idx
-                }
+                },
+                include: Tag
             });
         } catch (err) {
             logger.error(err);
@@ -51,7 +53,8 @@ class EnvDataDao extends Dao {
                 where: {
                     location: data.location,
                     time: data.time
-                }
+                },
+                include: Tag
             });
         } catch (err) {
             logger.error(err);
