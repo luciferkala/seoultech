@@ -14,6 +14,7 @@ export namespace EnvDataModelTypes {
         type: DataTypes.DataType;
         allowNull: boolean;
         primaryKey?: boolean;
+        autoIncrement?: boolean;
         validate?: ModelValidateOptions;
     }
     export interface IEnvDataScheme extends ModelAttributes {
@@ -33,6 +34,7 @@ export namespace EnvDataModelTypes {
             type: DataTypes.INTEGER,
             allowNull: false,
             primaryKey: true,
+            autoIncrement: true,
             validate: {
                 notEmpty: true
             }

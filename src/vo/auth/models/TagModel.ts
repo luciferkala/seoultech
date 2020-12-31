@@ -5,8 +5,8 @@ import {
     ModelAttributes,
     ModelValidateOptions
 } from "sequelize";
-export namespace PostModelTypes {
-    export interface IBasePostTableOptions extends InitOptions {
+export namespace TagModelTypes {
+    export interface IBaseTagTableOptions extends InitOptions {
         sequelize: Sequelize;
         tableName: string;
     }
@@ -17,37 +17,21 @@ export namespace PostModelTypes {
         autoIncrement?: boolean;
         validate?: ModelValidateOptions;
     }
-    export interface IBoardScheme extends ModelAttributes {
+    export interface ITagScheme extends ModelAttributes {
         idx: IColumnOption;
-        title: IColumnOption;
-        content: IColumnOption;
-        author: IColumnOption;
+        value: IColumnOption;
     }
-    export const attr: PostModelTypes.IBoardScheme = {
+    export const attr: TagModelTypes.ITagScheme = {
         idx: {
             type: DataTypes.INTEGER,
             allowNull: false,
-            primaryKey: true,
             autoIncrement: true,
+            primaryKey: true,
             validate: {
                 notEmpty: true
             }
         },
-        title: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            validate: {
-                notEmpty: true
-            }
-        },
-        content: {
-            type: DataTypes.TEXT,
-            allowNull: false,
-            validate: {
-                notEmpty: true
-            }
-        },
-        author: {
+        value: {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
