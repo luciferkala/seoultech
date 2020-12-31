@@ -2,13 +2,13 @@ import { NextFunction, Request, Response } from "express";
 
 import Controller from "@src/controllers/Controller";
 
-import PostService from "@src/services/PostService";
+import EnvDataService from "@src/services/EnvDataService";
 
 import resTypes from "@src/utils/resTypes";
-import Post from "@src/models/PostModel";
+import EnvData from "@src/models/EnvDataModel";
 
-class SigninController extends Controller {
-    private result: Post | string;
+class FindAllController extends Controller {
+    private result: EnvData[] | string;
     constructor() {
         super();
         this.result = "";
@@ -20,7 +20,7 @@ class SigninController extends Controller {
         next: NextFunction
     ): Promise<void> {
         try {
-            this.result = await PostService.findOne(req);
+            this.result = await EnvDataService.findAll(req);
         } catch (e: unknown) {
             this.result = "InternalServerError";
             console.log(e);
@@ -43,9 +43,9 @@ class SigninController extends Controller {
                 resTypes.cannotFindItemRes(res, "user");
                 break;
             default:
-                resTypes.successRes(res, "특정 게시물 조회");
+                resTypes.successRes(res, "환경데이터 일괄 조회", this.result);
         }
     }
 }
 
-export default SigninController;
+export default FindAllController;

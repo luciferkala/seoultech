@@ -7,7 +7,7 @@ import BoardService from "@src/services/BoardService";
 import resTypes from "@src/utils/resTypes";
 import Board from "@src/models/BoardModel";
 
-class SigninController extends Controller {
+class FindOneController extends Controller {
     private result: Board | string;
     constructor() {
         super();
@@ -20,7 +20,7 @@ class SigninController extends Controller {
         next: NextFunction
     ): Promise<void> {
         try {
-            this.result = await BoardService.create(req);
+            this.result = await BoardService.findOne(req);
         } catch (e: unknown) {
             this.result = "InternalServerError";
             console.log(e);
@@ -43,9 +43,9 @@ class SigninController extends Controller {
                 resTypes.cannotFindItemRes(res, "user");
                 break;
             default:
-                resTypes.successRes(res, "게시판 생성");
+                resTypes.successRes(res, "특정 게시판 조회", this.result);
         }
     }
 }
 
-export default SigninController;
+export default FindOneController;

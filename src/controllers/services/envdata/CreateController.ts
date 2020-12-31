@@ -7,7 +7,7 @@ import EnvDataService from "@src/services/EnvDataService";
 import resTypes from "@src/utils/resTypes";
 import EnvData from "@src/models/EnvDataModel";
 
-class SigninController extends Controller {
+class CreateController extends Controller {
     private result: EnvData | string;
     constructor() {
         super();
@@ -20,7 +20,7 @@ class SigninController extends Controller {
         next: NextFunction
     ): Promise<void> {
         try {
-            this.result = await EnvDataService.findOne(req);
+            this.result = await EnvDataService.create(req);
         } catch (e: unknown) {
             this.result = "InternalServerError";
             console.log(e);
@@ -43,9 +43,9 @@ class SigninController extends Controller {
                 resTypes.cannotFindItemRes(res, "user");
                 break;
             default:
-                resTypes.successRes(res, "특정 환경데이터 조회");
+                resTypes.successRes(res, "환경데이터 생성");
         }
     }
 }
 
-export default SigninController;
+export default CreateController;

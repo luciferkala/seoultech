@@ -1,8 +1,8 @@
 import { Router } from "express";
 import JwtVerifyAccessController from "@src/controllers/middlewares/jwt/JwtVerifyAccessController";
-import CreateController from "@src/controllers/services/envdata/CreateEnvDataController";
-import FindAllController from "@src/controllers/services/envdata/FindAllEnvDataController";
-import FindOneController from "@src/controllers/services/envdata/FindOneEnvDataController";
+import CreateController from "@src/controllers/services/board/CreateController";
+import FindAllController from "@src/controllers/services/board/FindAllController";
+import FindOneController from "@src/controllers/services/board/FindOneController";
 
 const router = Router();
 

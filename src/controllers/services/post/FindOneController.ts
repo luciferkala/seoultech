@@ -2,13 +2,13 @@ import { NextFunction, Request, Response } from "express";
 
 import Controller from "@src/controllers/Controller";
 
-import BoardService from "@src/services/BoardService";
+import PostService from "@src/services/PostService";
 
 import resTypes from "@src/utils/resTypes";
-import Board from "@src/models/BoardModel";
+import Post from "@src/models/PostModel";
 
-class CreateBoardController extends Controller {
-    private result: Board | string;
+class FindOneController extends Controller {
+    private result: Post | string;
     constructor() {
         super();
         this.result = "";
@@ -20,7 +20,7 @@ class CreateBoardController extends Controller {
         next: NextFunction
     ): Promise<void> {
         try {
-            this.result = await BoardService.findOne(req);
+            this.result = await PostService.findOne(req);
         } catch (e: unknown) {
             this.result = "InternalServerError";
             console.log(e);
@@ -43,9 +43,9 @@ class CreateBoardController extends Controller {
                 resTypes.cannotFindItemRes(res, "user");
                 break;
             default:
-                resTypes.successRes(res, "특정 게시판 조회");
+                resTypes.successRes(res, "특정 게시물 조회", this.result);
         }
     }
 }
 
-export default CreateBoardController;
+export default FindOneController;
