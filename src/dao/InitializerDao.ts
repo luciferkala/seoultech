@@ -2,6 +2,7 @@ import User from "@src/models/UserModel";
 import EnvData from "@src/models/EnvDataModel";
 import Board from "@src/models/BoardModel";
 import Post from "@src/models/PostModel";
+import Tag from "@src/models/TagModel";
 import AuthDBManager from "@src/models/AuthDBManager";
 import Dao from "@src/dao/Dao";
 import { toNamespacedPath } from "path";
@@ -50,6 +51,16 @@ class InitializerDao extends Dao {
             targetKey: "email",
             foreignKey: "author"
         });
+
+        Tag.belongsToMany(EnvData, {
+            through: "envData_tag",
+            foreignKey: "tag_idx"
+        });
+
+        EnvData.belongsToMany(Tag, {
+            through: "envData_tag",
+            foreignKey: "env_idx"
+        });
     }
 
     public async sync(): Promise<void> {
@@ -57,6 +68,7 @@ class InitializerDao extends Dao {
         await EnvData.sync();
         await Board.sync();
         await Post.sync();
+        await Tag.sync();
         // await this.endConnect();
     }
 }
