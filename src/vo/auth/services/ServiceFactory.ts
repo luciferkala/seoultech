@@ -135,7 +135,7 @@ const serviceFactory = {
                 data: req.body,
                 decoded: req.decoded,
                 params: req.params,
-                files: req.files
+                file: req.file
             };
             //if -> return "BadRequest"
             const result: string = await serviceReturn.signin<T>(
@@ -152,7 +152,7 @@ const serviceFactory = {
                 data: req.body,
                 decoded: req.decoded,
                 params: req.params,
-                files: req.files
+                file: req.file
             };
             //if -> return "BadRequest"
             const result: T[] | string = await serviceReturn.getMany<T>(
@@ -169,7 +169,7 @@ const serviceFactory = {
                 data: req.body,
                 decoded: req.decoded,
                 params: req.params,
-                files: req.files
+                file: req.file
             };
             //if -> return "BadRequest"
             const result: string = await serviceReturn.postOrUpdate<T>(
@@ -186,7 +186,7 @@ const serviceFactory = {
                 data: req.body,
                 decoded: req.decoded,
                 params: req.params,
-                files: req.files
+                file: req.file
             };
             //if -> return "BadRequest"
             const result: string = await serviceReturn.delete<T>(

@@ -15,6 +15,7 @@ export namespace UserModelTypes {
         allowNull: boolean;
         primaryKey?: boolean;
         validate?: ModelValidateOptions;
+        unique?: boolean;
     }
     export interface IUserScheme extends ModelAttributes {
         email: IColumnOption;
@@ -34,6 +35,7 @@ export namespace UserModelTypes {
         name: {
             type: DataTypes.STRING,
             allowNull: false,
+            unique: true,
             validate: {
                 notEmpty: true
             }

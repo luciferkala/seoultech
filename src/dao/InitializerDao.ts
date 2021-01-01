@@ -36,22 +36,22 @@ class InitializerDao extends Dao {
         envData_tag.initiate(this.db.getConnection());
 
         User.hasMany(EnvData, {
-            sourceKey: "email",
+            sourceKey: "name",
             foreignKey: "author"
         });
 
         User.hasMany(Post, {
-            sourceKey: "email",
+            sourceKey: "name",
             foreignKey: "author"
         });
 
         EnvData.belongsTo(User, {
-            targetKey: "email",
+            targetKey: "name",
             foreignKey: "author"
         });
 
         Post.belongsTo(User, {
-            targetKey: "email",
+            targetKey: "name",
             foreignKey: "author"
         });
 

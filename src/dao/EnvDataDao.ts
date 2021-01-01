@@ -1,10 +1,15 @@
-import { Model, UniqueConstraintError, ValidationError } from "sequelize";
+import { UniqueConstraintError, ValidationError } from "sequelize";
 import AuthDBManager from "@src/models/AuthDBManager";
 import EnvData from "@src/models/EnvDataModel";
 import LogService from "@src/utils/LogService";
 import Dao from "@src/dao/Dao";
-import { AllStrictReqData, AuthReqData } from "@src/vo/auth/services/reqData";
+import {
+    AllStrictReqData,
+    AuthReqData,
+    ReqData
+} from "@src/vo/auth/services/reqData";
 import Tag from "@src/models/TagModel";
+import User from "@src/models/UserModel";
 
 const logger = LogService.getInstance();
 
@@ -67,18 +72,50 @@ class EnvDataDao extends Dao {
     async save({
         data,
         decoded,
-        params
-    }: AuthReqData): Promise<EnvData | string | null | undefined> {
-        let newBoard: EnvData | null = null;
+        params,
+        file
+    }: ReqData): Promise<EnvData | string | null | undefined> {
+        const transaction = await AuthDBManager.getInstance().getTransaction();
+        let newEnvData: EnvData | null = null;
+        let getUser: User | null = null;
+        let getTag: Tag[] | null = [];
         try {
-            newBoard = await EnvData.create(data);
+            getUser = await User.findOne({
+                where: { email: decoded?.email },
+                transaction
+            });
+            newEnvData = await EnvData.create({
+                location: data?.location,
+                time: data?.time,
+                picture: file?.location,
+                description: data?.description,
+                temp: data?.temp,
+                humid: data?.humid,
+                dust: data?.dust,
+                atm: data?.atm,
+                author: getUser?.getDataValue("name"),
+                transaction
+            });
+            for (let tag in data?.tags) {
+                let t = await Tag.findOne({
+                    where: { value: tag },
+                    transaction
+                });
+                if (t != null) {
+                    getTag.push(t);
+                }
+            }
+            newEnvData.addTags(getTag);
+            // newEnvData.
+            await transaction.commit();
         } catch (err) {
             logger.error(err);
+            await transaction.rollback();
             if (err instanceof UniqueConstraintError) return `AlreadyExistItem`;
             else if (err instanceof ValidationError) return `BadRequest`;
             return undefined;
         }
-        return newBoard;
+        return newEnvData;
     }
 
     async update({

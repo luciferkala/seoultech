@@ -10,7 +10,7 @@ const router = Router();
 router.post(
     "/",
     new JwtVerifyAccessController().excute(),
-    upload.single("photo"),
+    upload.single("picture"),
     new CreateController().excute()
 );
 

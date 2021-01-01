@@ -20,6 +20,7 @@ class CreateController extends Controller {
         next: NextFunction
     ): Promise<void> {
         try {
+            console.log(req);
             this.result = await EnvDataService.create(req);
         } catch (e: unknown) {
             this.result = "InternalServerError";

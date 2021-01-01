@@ -14,7 +14,7 @@ export interface ReqData {
     data?: data;
     decoded?: decoded;
     params?: params;
-    files?: files;
+    file?: files;
 }
 export interface AuthReqData {
     data: data;
@@ -30,5 +30,5 @@ export interface StrictReqData extends ReqData {
 }
 export interface AllStrictReqData extends StrictReqData {
     params: params;
-    files?: files;
+    file?: files;
 }
