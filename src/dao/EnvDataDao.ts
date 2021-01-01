@@ -37,7 +37,7 @@ class EnvDataDao extends Dao {
                 where: {
                     idx: data.idx
                 },
-                include: Tag
+                include: ["tags"]
             });
         } catch (err) {
             logger.error(err);
@@ -59,7 +59,7 @@ class EnvDataDao extends Dao {
                     location: data.location,
                     time: data.time
                 },
-                include: Tag
+                include: ["tags"]
             });
         } catch (err) {
             logger.error(err);
@@ -79,15 +79,14 @@ class EnvDataDao extends Dao {
         let newEnvData: EnvData | null = null;
         let getUser: User | null = null;
         let getTag: Tag[] | null = [];
-        let tags: string[] = data?.tags
-            .substr(1, data?.tags.length - 1)
-            .split(",");
+        let tags: string[] = JSON.parse(data?.tags);
+        console.log(tags);
         try {
             getUser = await User.findOne({
                 where: { email: decoded?.email },
                 transaction
             });
-            for (let tag in tags) {
+            for (let tag of tags) {
                 let t = await Tag.findOne({
                     where: { value: tag },
                     transaction
@@ -96,6 +95,7 @@ class EnvDataDao extends Dao {
                     getTag.push(t);
                 }
             }
+            console.log(JSON.stringify(getTag));
             newEnvData = await EnvData.create({
                 location: data?.location,
                 time: data?.time,
@@ -106,13 +106,11 @@ class EnvDataDao extends Dao {
                 dust: data?.dust,
                 atm: data?.atm,
                 author: getUser?.getDataValue("name"),
-                tag: {
-                    ...tags
-                },
-                include: [Tag],
                 transaction
             });
-            // newEnvData.addTags(getTag);
+            await newEnvData.addTags(getTag, {
+                through: { selfGranted: false }
+            });
             // newEnvData.
             await transaction.commit();
         } catch (err) {
