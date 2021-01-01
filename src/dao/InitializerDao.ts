@@ -57,7 +57,8 @@ class InitializerDao extends Dao {
 
         Tag.belongsToMany(EnvData, {
             through: "envData_tag",
-            foreignKey: "tag_idx"
+            foreignKey: "tag_idx",
+            as: "tags2"
         });
 
         EnvData.belongsToMany(Tag, {

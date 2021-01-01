@@ -10,6 +10,7 @@ import {
 } from "@src/vo/auth/services/reqData";
 import Tag from "@src/models/TagModel";
 import User from "@src/models/UserModel";
+import envData_tag from "@src/models/envData_tagModel";
 
 const logger = LogService.getInstance();
 
@@ -37,7 +38,7 @@ class EnvDataDao extends Dao {
                 where: {
                     idx: data.idx
                 },
-                include: ["tags"]
+                include: "tags2"
             });
         } catch (err) {
             logger.error(err);
@@ -59,7 +60,7 @@ class EnvDataDao extends Dao {
                     location: data.location,
                     time: data.time
                 },
-                include: ["tags"]
+                include: "tags2"
             });
         } catch (err) {
             logger.error(err);
