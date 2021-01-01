@@ -47,10 +47,7 @@ class TagDao extends Dao {
     }: AllStrictReqData): Promise<Tag[] | string | null | undefined> {
         let result: Tag[] | null = null;
         try {
-            result = await Tag.findAll({
-                where: {}
-                //다대다로 묶여서 글에 묶여있는 태그 보여주기
-            });
+            result = await Tag.findAll({});
         } catch (err) {
             logger.error(err);
             if (err instanceof ValidationError) return "BadRequest";
