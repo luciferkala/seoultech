@@ -79,11 +79,23 @@ class EnvDataDao extends Dao {
         let newEnvData: EnvData | null = null;
         let getUser: User | null = null;
         let getTag: Tag[] | null = [];
+        let tags: string[] = data?.tags
+            .substr(1, data?.tags.length - 1)
+            .split(",");
         try {
             getUser = await User.findOne({
                 where: { email: decoded?.email },
                 transaction
             });
+            for (let tag in tags) {
+                let t = await Tag.findOne({
+                    where: { value: tag },
+                    transaction
+                });
+                if (t != null) {
+                    getTag.push(t);
+                }
+            }
             newEnvData = await EnvData.create({
                 location: data?.location,
                 time: data?.time,
@@ -94,18 +106,13 @@ class EnvDataDao extends Dao {
                 dust: data?.dust,
                 atm: data?.atm,
                 author: getUser?.getDataValue("name"),
+                tag: {
+                    ...tags
+                },
+                include: [Tag],
                 transaction
             });
-            for (let tag in data?.tags) {
-                let t = await Tag.findOne({
-                    where: { value: tag },
-                    transaction
-                });
-                if (t != null) {
-                    getTag.push(t);
-                }
-            }
-            newEnvData.addTags(getTag);
+            // newEnvData.addTags(getTag);
             // newEnvData.
             await transaction.commit();
         } catch (err) {

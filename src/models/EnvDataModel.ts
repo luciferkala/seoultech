@@ -6,7 +6,8 @@ import {
     BelongsToManyAddAssociationsMixin,
     BelongsToManyHasAssociationsMixin,
     BelongsToManyRemoveAssociationsMixin,
-    BelongsToManyCreateAssociationMixin
+    BelongsToManyCreateAssociationMixin,
+    Association
 } from "sequelize";
 import { EnvDataModelTypes } from "@src/vo/auth/models/EnvDataModel";
 import { EnvDataTypes } from "@src/vo/auth/controllers/EnvData";
@@ -33,10 +34,15 @@ class EnvData
 
     public createTag!: BelongsToManyCreateAssociationMixin<Tag>;
     public getTags!: BelongsToManyGetAssociationsMixin<Tag>;
-    public addTags!: BelongsToManyAddAssociationsMixin<Tag, string>;
-    public hasTags!: BelongsToManyHasAssociationsMixin<Tag, string>;
-    public removeTags!: BelongsToManyRemoveAssociationsMixin<Tag, string>;
+    public addTags!: BelongsToManyAddAssociationsMixin<Tag, number>;
+    public hasTags!: BelongsToManyHasAssociationsMixin<Tag, number>;
+    public removeTags!: BelongsToManyRemoveAssociationsMixin<Tag, number>;
 
+    public readonly tags?: Tag[];
+
+    public static associations: {
+        tags: Association<EnvData, Tag>;
+    };
     static initiate(connection: Sequelize): Model {
         const opt: EnvDataModelTypes.IBaseEnvDataTableOptions = {
             sequelize: connection,
