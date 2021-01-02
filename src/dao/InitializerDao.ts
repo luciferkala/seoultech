@@ -89,6 +89,8 @@ class InitializerDao extends Dao {
         await Tag.findOrCreate({ where: { value: "수질" } });
         await Tag.findOrCreate({ where: { value: "토양" } });
         await Tag.findOrCreate({ where: { value: "대기" } });
+        await Board.findOrCreate({ where: { boardName: "자유게시판" } });
+        await Board.findOrCreate({ where: { boardName: "정보게시판" } });
         // await this.endConnect();
     }
 }
