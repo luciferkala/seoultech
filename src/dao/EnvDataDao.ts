@@ -1,4 +1,4 @@
-import { UniqueConstraintError, ValidationError } from "sequelize";
+import { UniqueConstraintError, ValidationError, QueryTypes } from "sequelize";
 import AuthDBManager from "@src/models/AuthDBManager";
 import EnvData from "@src/models/EnvDataModel";
 import LogService from "@src/utils/LogService";
@@ -38,7 +38,10 @@ class EnvDataDao extends Dao {
                 where: {
                     idx: data.idx
                 },
-                include: "tags"
+                include: {
+                    model: Tag,
+                    as: "tags"
+                }
             });
         } catch (err) {
             logger.error(err);

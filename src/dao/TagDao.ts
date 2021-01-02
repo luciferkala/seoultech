@@ -1,4 +1,10 @@
-import { Model, UniqueConstraintError, ValidationError } from "sequelize";
+import {
+    Model,
+    UniqueConstraintError,
+    ValidationError,
+    QueryTypes,
+    Sequelize
+} from "sequelize";
 import AuthDBManager from "@src/models/AuthDBManager";
 import Tag from "@src/models/TagModel";
 import LogService from "@src/utils/LogService";

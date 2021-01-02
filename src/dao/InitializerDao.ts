@@ -66,6 +66,16 @@ class InitializerDao extends Dao {
             foreignKey: "env_idx",
             as: "tags"
         });
+
+        Board.hasMany(Post, {
+            sourceKey: "boardName",
+            foreignKey: "boardName"
+        });
+
+        Post.belongsTo(Board, {
+            targetKey: "boardName",
+            foreignKey: "boardName"
+        });
     }
 
     public async sync(): Promise<void> {
