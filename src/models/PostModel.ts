@@ -12,6 +12,7 @@ class Post
     public title!: string;
     public content!: string;
     public author!: string;
+    public boardName!: string;
     public readonly createdAt!: Date;
     public readonly updatedAt!: Date;
     static initiate(connection: Sequelize): Model {
