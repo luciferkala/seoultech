@@ -23,7 +23,8 @@ class AuthDBManager extends DBManager {
                 },
                 logging: LogService.getInstance().info.bind(
                     LogService.getLogger()
-                )
+                ),
+                define: { charset: "utf8", collate: "utf8_general_ci" }
             }
         );
         async () => await this.checkConnection();
