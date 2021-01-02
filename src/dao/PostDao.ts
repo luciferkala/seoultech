@@ -4,6 +4,7 @@ import Post from "@src/models/PostModel";
 import LogService from "@src/utils/LogService";
 import Dao from "@src/dao/Dao";
 import { AllStrictReqData, AuthReqData } from "@src/vo/auth/services/reqData";
+import User from "@src/models/UserModel";
 
 const logger = LogService.getInstance();
 
@@ -49,7 +50,7 @@ class PostDao extends Dao {
         try {
             result = await Post.findAll({
                 where: {
-                    //Board로 찾기
+                    boardName: data.boardName
                 }
             });
         } catch (err) {
@@ -65,9 +66,21 @@ class PostDao extends Dao {
         decoded,
         params
     }: AuthReqData): Promise<Post | string | null | undefined> {
+        const transaction = await AuthDBManager.getInstance().getTransaction();
         let newBoard: Post | null = null;
+        let getUser: User | null = null;
         try {
-            newBoard = await Post.create(data);
+            getUser = await User.findOne({
+                where: { email: decoded?.email },
+                transaction
+            });
+            newBoard = await Post.create({
+                title: data.title,
+                content: data.content,
+                boardName: data.boardName,
+                author: getUser?.getDataValue("name"),
+                transaction
+            });
         } catch (err) {
             logger.error(err);
             if (err instanceof UniqueConstraintError) return `AlreadyExistItem`;
