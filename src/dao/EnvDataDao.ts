@@ -63,7 +63,10 @@ class EnvDataDao extends Dao {
                     location: data.location,
                     time: data.time
                 },
-                include: "tags"
+                include: {
+                    model: Tag,
+                    as: "tags"
+                }
             });
         } catch (err) {
             logger.error(err);
