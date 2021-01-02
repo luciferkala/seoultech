@@ -15,6 +15,7 @@ export namespace TagModelTypes {
         allowNull: boolean;
         primaryKey?: boolean;
         autoIncrement?: boolean;
+        unique?: boolean;
         validate?: ModelValidateOptions;
     }
     export interface ITagScheme extends ModelAttributes {
@@ -34,6 +35,7 @@ export namespace TagModelTypes {
         value: {
             type: DataTypes.STRING,
             allowNull: false,
+            unique: true,
             validate: {
                 notEmpty: true
             }

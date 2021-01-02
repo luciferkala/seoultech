@@ -38,7 +38,7 @@ class EnvDataDao extends Dao {
                 where: {
                     idx: data.idx
                 },
-                include: "tags2"
+                include: "tags"
             });
         } catch (err) {
             logger.error(err);
@@ -60,7 +60,7 @@ class EnvDataDao extends Dao {
                     location: data.location,
                     time: data.time
                 },
-                include: "tags2"
+                include: "tags"
             });
         } catch (err) {
             logger.error(err);
