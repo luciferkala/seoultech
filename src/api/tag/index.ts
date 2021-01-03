@@ -12,12 +12,12 @@ router.post(
     new CreateController().excute()
 );
 
-router.get(
+router.post(
     "/all",
     new JwtVerifyAccessController().excute(),
     new FindAllController().excute()
 );
-router.get(
+router.post(
     "/one",
     new JwtVerifyAccessController().excute(),
     new FindOneController().excute()
