@@ -105,7 +105,8 @@ class EnvDataDao extends Dao {
             console.log(JSON.stringify(getTag));
             newEnvData = await EnvData.create({
                 location: data?.location,
-                time: data?.time,
+                date: new Date(data?.date),
+                time: new Date(data?.time).getTime(),
                 picture: file?.location,
                 description: data?.description,
                 temp: data?.temp,
