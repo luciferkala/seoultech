@@ -21,13 +21,14 @@ class EnvData
     implements EnvDataTypes.Body {
     public idx!: number;
     public location!: string;
-    public time!: Date;
+    public date!: string;
+    public time!: string;
     public picture?: string;
     public description?: string;
     public temp!: number;
-    public humid?: number;
-    public dust?: number;
-    public atm?: number;
+    public humid!: number;
+    public dust!: number;
+    public atm!: number;
     public author!: string;
     public readonly createdAt!: Date;
     public readonly updatedAt!: Date;

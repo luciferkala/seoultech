@@ -20,6 +20,7 @@ export namespace EnvDataModelTypes {
     export interface IEnvDataScheme extends ModelAttributes {
         idx: IColumnOption;
         location: IColumnOption;
+        date: IColumnOption;
         time: IColumnOption;
         picture: IColumnOption;
         description: IColumnOption;
@@ -46,8 +47,15 @@ export namespace EnvDataModelTypes {
                 notEmpty: true
             }
         },
-        time: {
+        date: {
             type: DataTypes.DATE,
+            allowNull: false,
+            validate: {
+                notEmpty: true
+            }
+        },
+        time: {
+            type: DataTypes.TIME,
             allowNull: false,
             validate: {
                 notEmpty: true
