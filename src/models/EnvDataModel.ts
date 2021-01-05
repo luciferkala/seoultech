@@ -21,8 +21,7 @@ class EnvData
     implements EnvDataTypes.Body {
     public idx!: number;
     public location!: string;
-    public date!: string;
-    public time!: string;
+    public time!: Date;
     public picture?: string;
     public description?: string;
     public temp!: number;

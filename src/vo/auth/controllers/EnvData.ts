@@ -1,8 +1,7 @@
 export namespace EnvDataTypes {
     export interface PostBody {
         location: string;
-        date: string;
-        time: string;
+        time: Date;
         picture?: string;
         description?: string;
         temp: number;
@@ -14,8 +13,7 @@ export namespace EnvDataTypes {
     export interface Body {
         idx: number;
         location: string;
-        date: string;
-        time: string;
+        time: Date;
         picture?: string;
         description?: string;
         temp: number;

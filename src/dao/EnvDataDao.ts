@@ -103,10 +103,10 @@ class EnvDataDao extends Dao {
                 }
             }
             console.log(JSON.stringify(getTag));
+            console.log(moment(data?.time, "hh:mm"));
             newEnvData = await EnvData.create({
                 location: data?.location,
-                date: moment(data?.date, "YYYY-MM-DD"),
-                time: moment(data?.time, "hh:mm"),
+                time: moment(data?.date + " " + data?.time, "YYYY-MM-DD hh:mm"),
                 picture: file?.location,
                 description: data?.description,
                 temp: data?.temp,
