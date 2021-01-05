@@ -123,7 +123,7 @@ class EnvDataDao extends Dao {
                         Sequelize.fn(
                             "date_format",
                             Sequelize.col("time"),
-                            "%b-%d %H:%i"
+                            "%b-%d\n %H:%i"
                         ),
                         "time"
                     ],
