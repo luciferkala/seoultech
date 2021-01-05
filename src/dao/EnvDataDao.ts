@@ -95,17 +95,17 @@ class EnvDataDao extends Dao {
         let result: EnvData[] | null = null;
         //온도, 습도, 미세먼지농도, 기압
         let criteria: string = "";
-        switch (data.creteria) {
-            case "온도":
+        switch (data.criteria) {
+            case "0":
                 criteria = "temp";
                 break;
-            case "습도":
+            case "1":
                 criteria = "humid";
                 break;
-            case "미세먼지 농도":
+            case "2":
                 criteria = "dust";
                 break;
-            case "기압":
+            case "3":
                 criteria = "atm";
                 break;
             default:
