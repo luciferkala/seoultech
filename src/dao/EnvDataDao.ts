@@ -115,7 +115,7 @@ class EnvDataDao extends Dao {
             result = await EnvData.findAll({
                 attributes: ["time", criteria],
                 where: {
-                    location: data.location
+                    location: data.location || "서울과학기술대학교 미래관"
                     // time: {
                     //     [Op.and]: {
                     //         [Op.gte]: moment(
