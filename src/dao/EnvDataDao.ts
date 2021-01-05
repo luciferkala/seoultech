@@ -118,7 +118,7 @@ class EnvDataDao extends Dao {
         }
         try {
             result = await EnvData.findAll({
-                order: ["time", "ASC"],
+                order: ["time"],
                 attributes: [
                     [
                         Sequelize.fn(
