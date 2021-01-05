@@ -10,22 +10,4 @@ router.post(
     new FindAllByDataController().excute()
 );
 
-// router.post(
-//     "/humid",
-//     new JwtVerifyAccessController().excute(),
-//     new FindAllController().excute()
-// );
-
-// router.post(
-//     "/dust",
-//     new JwtVerifyAccessController().excute(),
-//     new FindAllController().excute()
-// );
-
-// router.post(
-//     "/atm",
-//     new JwtVerifyAccessController().excute(),
-//     new FindAllController().excute()
-// );
-
 export default router;
