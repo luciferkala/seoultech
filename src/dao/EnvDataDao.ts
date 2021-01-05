@@ -1,4 +1,5 @@
 import { UniqueConstraintError, ValidationError, QueryTypes } from "sequelize";
+import moment from "moment";
 import AuthDBManager from "@src/models/AuthDBManager";
 import EnvData from "@src/models/EnvDataModel";
 import LogService from "@src/utils/LogService";
@@ -10,7 +11,6 @@ import {
 } from "@src/vo/auth/services/reqData";
 import Tag from "@src/models/TagModel";
 import User from "@src/models/UserModel";
-import envData_tag from "@src/models/envData_tagModel";
 
 const logger = LogService.getInstance();
 
@@ -105,8 +105,8 @@ class EnvDataDao extends Dao {
             console.log(JSON.stringify(getTag));
             newEnvData = await EnvData.create({
                 location: data?.location,
-                date: new Date(data?.date),
-                time: new Date(data?.time).getTime(),
+                date: moment(data?.date, "YYYY-MM-DD"),
+                time: moment(data?.time, "hh:mm"),
                 picture: file?.location,
                 description: data?.description,
                 temp: data?.temp,
