@@ -96,16 +96,16 @@ class EnvDataDao extends Dao {
         //온도, 습도, 미세먼지농도, 기압
         let criteria: string = "";
         switch (data.criteria) {
-            case "0":
+            case "1":
                 criteria = "temp";
                 break;
-            case "1":
+            case "2":
                 criteria = "humid";
                 break;
-            case "2":
+            case "3":
                 criteria = "dust";
                 break;
-            case "3":
+            case "4":
                 criteria = "atm";
                 break;
             default:
