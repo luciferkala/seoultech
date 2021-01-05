@@ -94,26 +94,26 @@ class EnvDataDao extends Dao {
     }: AllStrictReqData): Promise<EnvData[] | string | null | undefined> {
         let result: EnvData[] | null = null;
         //온도, 습도, 미세먼지농도, 기압
-        let creteria: string = "";
+        let criteria: string = "";
         switch (data.creteria) {
             case "온도":
-                creteria = "temp";
+                criteria = "temp";
                 break;
             case "습도":
-                creteria = "humid";
+                criteria = "humid";
                 break;
             case "미세먼지 농도":
-                creteria = "dust";
+                criteria = "dust";
                 break;
             case "기압":
-                creteria = "atm";
+                criteria = "atm";
                 break;
             default:
-                creteria = "temp";
+                criteria = "temp";
         }
         try {
             result = await EnvData.findAll({
-                attributes: ["time", creteria],
+                attributes: ["time", criteria],
                 where: {
                     location: data.location
                     // time: {
