@@ -1,4 +1,9 @@
-import { UniqueConstraintError, ValidationError, Op } from "sequelize";
+import {
+    UniqueConstraintError,
+    ValidationError,
+    Op,
+    Sequelize
+} from "sequelize";
 import moment from "moment";
 import AuthDBManager from "@src/models/AuthDBManager";
 import EnvData from "@src/models/EnvDataModel";
@@ -113,7 +118,17 @@ class EnvDataDao extends Dao {
         }
         try {
             result = await EnvData.findAll({
-                attributes: ["time", criteria],
+                attributes: [
+                    [
+                        Sequelize.fn(
+                            "date_format",
+                            Sequelize.col("time"),
+                            "%b-%d %H:%i"
+                        ),
+                        "time"
+                    ],
+                    criteria
+                ],
                 where: {
                     location: data.location || "서울과학기술대학교 미래관"
                     // time: {
