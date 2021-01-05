@@ -14,6 +14,7 @@ class AuthDBManager extends DBManager {
                 host: process.env.DB_HOST,
                 port: process.env.DB_PORT,
                 dialect: "mysql",
+                timezone: "+09:00", // 타임존을 설정
                 pool: {
                     max: 20,
                     min: 5,
