@@ -10,6 +10,9 @@ class UserService {
     static findAll = serviceFactory.getMany<EnvData>(
         EnvDataDao.getInstance().findAll
     );
+    static findAllByData = serviceFactory.getMany<EnvData>(
+        EnvDataDao.getInstance().findAllByData
+    );
     static create = serviceFactory.postOrUpdate<EnvData>(
         EnvDataDao.getInstance().save
     );

@@ -87,6 +87,61 @@ class EnvDataDao extends Dao {
         return result;
     }
 
+    async findAllByData({
+        data,
+        decoded,
+        params
+    }: AllStrictReqData): Promise<EnvData[] | string | null | undefined> {
+        let result: EnvData[] | null = null;
+        //온도, 습도, 미세먼지농도, 기압
+        let creteria: string = "";
+        switch (data.creteria) {
+            case "온도":
+                creteria = "temp";
+                break;
+            case "습도":
+                creteria = "humid";
+                break;
+            case "미세먼지 농도":
+                creteria = "dust";
+                break;
+            case "기압":
+                creteria = "atm";
+                break;
+            default:
+                creteria = "temp";
+        }
+        try {
+            result = await EnvData.findAll({
+                attributes: ["time", creteria],
+                where: {
+                    location: data.location
+                    // time: {
+                    //     [Op.and]: {
+                    //         [Op.gte]: moment(
+                    //             data?.date + " " + data?.time,
+                    //             "YYYY-MM-DD hh"
+                    //         ).toDate(),
+                    //         [Op.lte]: moment(
+                    //             data?.date + " " + data?.time + ":59",
+                    //             "YYYY-MM-DD hh:mm"
+                    //         ).toDate()
+                    //     }
+                    // }
+                },
+                include: {
+                    model: Tag,
+                    as: "tags"
+                }
+            });
+        } catch (err) {
+            logger.error(err);
+            if (err instanceof ValidationError) return "BadRequest";
+            return undefined;
+        }
+        return result;
+    }
+
     async save({
         data,
         decoded,
