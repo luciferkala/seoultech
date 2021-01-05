@@ -118,6 +118,7 @@ class EnvDataDao extends Dao {
         }
         try {
             result = await EnvData.findAll({
+                order: ["time", "ASC"],
                 attributes: [
                     [
                         Sequelize.fn(
@@ -131,18 +132,6 @@ class EnvDataDao extends Dao {
                 ],
                 where: {
                     location: data.location || "서울과학기술대학교 미래관"
-                    // time: {
-                    //     [Op.and]: {
-                    //         [Op.gte]: moment(
-                    //             data?.date + " " + data?.time,
-                    //             "YYYY-MM-DD hh"
-                    //         ).toDate(),
-                    //         [Op.lte]: moment(
-                    //             data?.date + " " + data?.time + ":59",
-                    //             "YYYY-MM-DD hh:mm"
-                    //         ).toDate()
-                    //     }
-                    // }
                 },
                 include: {
                     model: Tag,
