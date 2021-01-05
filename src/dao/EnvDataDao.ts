@@ -1,4 +1,4 @@
-import { UniqueConstraintError, ValidationError, QueryTypes } from "sequelize";
+import { UniqueConstraintError, ValidationError, Op } from "sequelize";
 import moment from "moment";
 import AuthDBManager from "@src/models/AuthDBManager";
 import EnvData from "@src/models/EnvDataModel";
@@ -61,7 +61,18 @@ class EnvDataDao extends Dao {
             result = await EnvData.findAll({
                 where: {
                     location: data.location,
-                    time: data.time
+                    time: {
+                        [Op.and]: {
+                            [Op.gte]: moment(
+                                data?.date + " " + data?.time,
+                                "YYYY-MM-DD hh"
+                            ).toDate(),
+                            [Op.lte]: moment(
+                                data?.date + " " + data?.time + ":59",
+                                "YYYY-MM-DD hh:mm"
+                            ).toDate()
+                        }
+                    }
                 },
                 include: {
                     model: Tag,
