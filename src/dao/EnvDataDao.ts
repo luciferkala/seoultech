@@ -4,7 +4,7 @@ import {
     Op,
     Sequelize
 } from "sequelize";
-import moment from "moment";
+import moment from "moment-timezone";
 import AuthDBManager from "@src/models/AuthDBManager";
 import EnvData from "@src/models/EnvDataModel";
 import LogService from "@src/utils/LogService";
@@ -71,11 +71,15 @@ class EnvDataDao extends Dao {
                             [Op.gte]: moment(
                                 data?.date + " " + data?.time,
                                 "YYYY-MM-DD hh"
-                            ).toDate(),
+                            )
+                                .tz("Asia/Seoul")
+                                .toDate(),
                             [Op.lte]: moment(
                                 data?.date + " " + data?.time + ":59",
                                 "YYYY-MM-DD hh:mm"
-                            ).toDate()
+                            )
+                                .tz("Asia/Seoul")
+                                .toDate()
                         }
                     }
                 },
@@ -176,7 +180,10 @@ class EnvDataDao extends Dao {
             console.log(moment(data?.time, "hh:mm"));
             newEnvData = await EnvData.create({
                 location: data?.location,
-                time: moment(data?.date + " " + data?.time, "YYYY-MM-DD hh:mm"),
+                time: moment(
+                    data?.date + " " + data?.time,
+                    "YYYY-MM-DD hh:mm"
+                ).tz("Asia/Seoul"),
                 picture: file?.location,
                 description: data?.description,
                 temp: data?.temp,
