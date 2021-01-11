@@ -22,6 +22,11 @@ class AuthDBManager extends DBManager {
                     acquire: 50000,
                     evict: 50000
                 },
+                dialectOptions: {
+                    charset: "utf8mb4",
+                    dateStrings: true,
+                    typeCast: true
+                },
                 logging: LogService.getInstance().info.bind(
                     LogService.getLogger()
                 ),
