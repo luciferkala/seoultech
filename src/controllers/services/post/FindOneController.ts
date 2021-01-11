@@ -40,10 +40,10 @@ class FindOneController extends Controller {
                 resTypes.internalErrorRes(res);
                 break;
             case "CannotFindItem":
-                resTypes.cannotFindItemRes(res, "user");
+                resTypes.cannotFindItemRes(res, "게시판 글");
                 break;
             default:
-                resTypes.successRes(res, "특정 게시물 조회", this.result);
+                resTypes.successRes(res, "특정 게시판 글 조회", this.result);
         }
     }
 }

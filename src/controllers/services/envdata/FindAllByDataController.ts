@@ -40,7 +40,7 @@ class FindAllController extends Controller {
                 resTypes.internalErrorRes(res);
                 break;
             case "CannotFindItem":
-                resTypes.cannotFindItemRes(res, "user");
+                resTypes.cannotFindItemRes(res, "차트 환경데이터");
                 break;
             default:
                 resTypes.successRes(res, "차트 기준별 조회", this.result);

@@ -43,7 +43,7 @@ class FindAllController extends Controller {
                 resTypes.cannotFindItemRes(res, "user");
                 break;
             default:
-                resTypes.successRes(res, "환경데이터 일괄 조회", this.result);
+                resTypes.successRes(res, "게시판 글 일괄 조회", this.result);
         }
     }
 }

@@ -39,9 +39,9 @@ class CreateController extends Controller {
             case "InternalServerError":
                 resTypes.internalErrorRes(res);
                 break;
-            case "CannotFindItem":
-                resTypes.cannotFindItemRes(res, "user");
-                break;
+            // case "CannotFindItem":
+            //     resTypes.cannotFindItemRes(res, "게시판");
+            //     break;
             default:
                 resTypes.successRes(res, "게시판 생성");
         }

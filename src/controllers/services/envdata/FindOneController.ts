@@ -40,7 +40,7 @@ class FindOneController extends Controller {
                 resTypes.internalErrorRes(res);
                 break;
             case "CannotFindItem":
-                resTypes.cannotFindItemRes(res, "user");
+                resTypes.cannotFindItemRes(res, "환경데이터");
                 break;
             default:
                 resTypes.successRes(res, "특정 환경데이터 조회", this.result);

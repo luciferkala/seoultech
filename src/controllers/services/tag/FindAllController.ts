@@ -40,7 +40,7 @@ class FindAllController extends Controller {
                 resTypes.internalErrorRes(res);
                 break;
             case "CannotFindItem":
-                resTypes.cannotFindItemRes(res, "user");
+                resTypes.cannotFindItemRes(res, "태그");
                 break;
             default:
                 resTypes.successRes(res, "태그 일괄 조회", this.result);
